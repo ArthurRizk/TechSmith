@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - LoginSmith</title>
+  <link rel="icon" href="images/logo.png" type="image/png" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="nav">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">LoginSmith</a>
+      <nav class="nav-links">
+        <a href="index.html">Templates</a>
+        <a href="#" class="active">Contact</a>
+        <a href="#" class="btn-signup">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>If you have any questions, feel free to reach out to us.</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form">
+    <div class="container">
+      <h2>Send Us a Message</h2>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <img src="images/logo.png" alt="LoginSmith Logo" class="footer-logo">
+        <p>© 2025 LoginSmith. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript to handle form submission -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the form from submitting normally
+
+      // Get the form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      // Create the payload to send to the Discord webhook
+      const payload = {
+        content: `**New Contact Message**\n**Name**: ${name}\n**Email**: ${email}\n**Message**: ${message}`,
+      };
+
+      // Send the data to the Discord webhook using fetch API
+      fetch('https://discord.com/api/webhooks/1369924981042970725/8L3Ez1OzmfHV9fFxzS0wlundotLn8Smbr8vxkElxG4SZagkRtVLsQfvWRtJYmxbbgT1x', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Your message has been sent successfully!');
+          document.getElementById('contactForm').reset(); // Reset form after submission
+        } else {
+          alert('There was an error sending your message. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your message. Please try again.');
+      });
+    });
+  </script>
+
+</body>
+</html>
